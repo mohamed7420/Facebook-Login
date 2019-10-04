@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FacebookCore
+import FacebookLogin
+import FacebookShare
 
 class ViewController: UIViewController {
 
@@ -16,5 +19,29 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func btn_FacebookLogin(_ sender: Any) {
+        
+        let manger = LoginManager()
+        
+        manger.logIn(permissions: [.publicProfile , .email], viewController: self) { (result) in
+            
+            switch result{
+                
+            case .cancelled:
+                print("user cancelled")
+                break
+            case .failed(let error):
+                print(error.localizedDescription)
+                break
+            case .success(let grantedpermission , let declinedPermission , let accessToken):
+                print("accessToken:\(accessToken)")
+                
+                
+            }
+        }
+        
+        
+        
+    }
 }
 
